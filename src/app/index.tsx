@@ -1,98 +1,61 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+export default function MenuPrincipal() {
+  const router = useRouter(); 
 
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
   return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
+    <View style={styles.container}>
+      
+      {/* Zone du Titre / Logo */}
+      <View style={styles.header}>
+        <Text style={styles.logo}>💃 ChoreoMaker</Text>
+        <Text style={styles.subtitle}>Animez vos danseurs en rythme</Text>
+      </View>
 
-export default function HomeScreen() {
-  return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
+      {/* Zone des Boutons */}
+      <View style={styles.menuContainer}>
+        
+        {/* Bouton Principal */}
+        <TouchableOpacity 
+          style={[styles.bouton, styles.boutonPrimaire]} 
+          onPress={() => router.push('/studio')}
+          activeOpacity={0.8}
+        >
+          <Text style={styles.boutonPrimaireText}>✨ Nouvelle Chorégraphie</Text>
+        </TouchableOpacity>
 
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
+        {/* Boutons Secondaires */}
+        <TouchableOpacity 
+          style={[styles.bouton, styles.boutonSecondaire]} 
+          onPress={() => router.push('/mes-projets')}
+          activeOpacity={0.8}
+        >
+          <Text style={styles.boutonSecondaireText}>📂 Mes Projets</Text>
+        </TouchableOpacity>
 
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
+        <TouchableOpacity 
+          style={[styles.bouton, styles.boutonSecondaire]} 
+          onPress={() => router.push('/parametres')}
+          activeOpacity={0.8}
+        >
+          <Text style={styles.boutonSecondaireText}>⚙️ Paramètres</Text>
+        </TouchableOpacity>
 
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
-  },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
-  },
-  title: {
-    textAlign: 'center',
-  },
-  code: {
-    textTransform: 'uppercase',
-  },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
-  },
+  container: { flex: 1, backgroundColor: '#121212', justifyContent: 'center', padding: 20 },
+  header: { alignItems: 'center', marginBottom: 60 },
+  logo: { color: '#ffffff', fontSize: 36, fontWeight: '900', letterSpacing: 1, marginBottom: 10 },
+  subtitle: { color: '#00adb5', fontSize: 16, fontWeight: '500' },
+  menuContainer: { width: '100%', maxWidth: 400, alignSelf: 'center', gap: 15 },
+  bouton: { width: '100%', paddingVertical: 18, borderRadius: 12, alignItems: 'center', justifyContent: 'center', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.2, shadowRadius: 5, elevation: 3 },
+  boutonPrimaire: { backgroundColor: '#00adb5', shadowColor: '#00adb5', marginBottom: 10 },
+  boutonSecondaire: { backgroundColor: '#2a2a2a', shadowColor: '#000' },
+  boutonPrimaireText: { color: '#ffffff', fontSize: 18, fontWeight: 'bold' },
+  boutonSecondaireText: { color: '#e0e0e0', fontSize: 16, fontWeight: '600' },
 });
