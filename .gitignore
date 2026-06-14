@@ -8,6 +8,8 @@ node_modules/
 dist/
 web-build/
 expo-env.d.ts
+*.metro.js.bundle
+*.metro.js.bundle.map
 
 # Native
 .kotlin/
@@ -32,6 +34,11 @@ yarn-error.*
 
 # local env files
 .env*.local
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # typescript
 *.tsbuildinfo
@@ -41,3 +48,33 @@ example
 # generated native folders
 /ios
 /android
+
+# --- iOS ---
+ios/build/
+ios/DerivedData/
+ios/Pods/
+ios/.xcode.env.local
+ios/**/*.xcworkspace/xcuserdata/
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+!default.mode1v3
+!default.mode2v3
+!default.perspectivev3
+
+# --- Tests ---
+coverage/
+
+# --- IDEs / Éditeurs ---
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# --- Système ---
+.DS_Store
+Thumbs.db
