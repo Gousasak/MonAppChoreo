@@ -1,4 +1,5 @@
 import { useRouter } from 'expo-router';
+import { Button } from 'expo-router/build/react-navigation';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function MenuPrincipal() {
@@ -15,6 +16,10 @@ export default function MenuPrincipal() {
 
       {/* Zone des Boutons */}
       <View style={styles.menuContainer}>
+
+        <Button onPressIn={() => {
+          router.push('/parametres');
+        }}>Settings</Button>
         
         {/* Bouton Principal */}
         <TouchableOpacity 
